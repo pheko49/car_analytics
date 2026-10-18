@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Car Analytics</title>
+    </head>
+
+    <body>
+        <h1>Car Analytics</h1>
+
+        <h2>Car List</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>MPG</th>
+                    <th>Cylinders</th>
+                    <th>Horsepower</th>
+                    <th>Weight</th>
+                    <th>Origin</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for car in cars %}
+                <tr>
+
+                    <td>{{ car.name }}</td>
+                    <td>{{ car.mpg }}</td>
+                    <td>{{ car.cylinders }}</td>
+                    <td>{{ car.horsepower|default_if_none:"N/A" }}</td>
+                    <td>{{ car.weight }}</td>
+                    <td>{{ car.origin }}</td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+    </body>
+</html>
