@@ -48,3 +48,54 @@ tbody tr:nth-child(even) {
 tbody tr:hover {
     background-color: lightblue;
 }
+
+/* Summary section */
+.summary-section {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+/* container holding kpis */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* individual kpi card */
+.summary-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px lightgray;
+    text-align: center;
+}
+
+/* kpi heading */
+.summary-card h3 {
+    color: steelblue;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.summary-card p {
+    color: navy;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Tablet screens */
+@media (max-width: 900px) {
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile screens */
+@media (max-width: 500px) {
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+}

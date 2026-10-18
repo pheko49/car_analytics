@@ -14,6 +14,38 @@
     <body>
         <h1>Car Analytics</h1>
 
+        <!--Summary statistics section-->
+        <section class="summary-section">
+
+            <h2>Dataset Overview</h2>
+
+            <div class="summary-grid">
+                <!-- Total number of cars-->
+                 <div class="summary-card">
+                    <h3>Total Cars</h3>
+                    <p>{{ total_cars }}</p>
+                 </div>
+
+                 <!--Average fuel efficiency-->
+                 <div class="summary-card">
+                    <h3>Average MPG</h3>
+                    <p>{{ average_mpg|floatformat:2 }}</p>
+                 </div>
+
+                 <!--Average horsepower-->
+                 <div class="summary-card">
+                    <h3>Average Horsepower</h3>
+                    <p>{{ average_horsepower|floatformat:2 }}</p>
+                 </div>
+
+                 <!--Average vehicle weight-->
+                 <div class="summary-card">
+                    <h3>Average Weight</h3>
+                    <p>{{ average_weight|floatformat:2 }}</p>
+                 </div>
+            </div>
+        </section>
+
         <h2>Car List</h2>
 
         <table>
