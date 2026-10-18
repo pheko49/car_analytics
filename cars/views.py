@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 from django.db.models import Avg, Count
+from django.core.paginator import Paginator
 
 from .models import Car
 # Create your views here.
@@ -41,8 +42,17 @@ def car_list(request):
         average_weight=Avg('weight'),
     )
 
+    # display 20 cars per page
+    paginator = Paginator(cars, 20)
+
+    # read the requested page number from the url
+    page_number = request.GET.get('page')
+
+    # retrieve the cars for the requested page
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'cars': cars,
+        'cars': page_obj,
         'total_cars': summary['total_cars'],
         'average_mpg': summary['average_mpg'],
         'average_horsepower': summary['average_horsepower'],
@@ -51,6 +61,7 @@ def car_list(request):
         'selected_cylinders': cylinders,
         'search': search,
         'min_mpg': min_mpg,
+        'page_obj': page_obj,
     }
 
     return render(

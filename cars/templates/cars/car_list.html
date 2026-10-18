@@ -126,6 +126,7 @@
 
                 </div>
 
+                <!-- form buttons -->
                 <div class="filter-actions">
                     <button type="submit">Apply Filters</button>
 
@@ -137,7 +138,7 @@
 
         <h2>Car List</h2>
 
-        <table>
+        <table id="car-table">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -164,6 +165,28 @@
                 {% endfor %}
             </tbody>
         </table>
+        <!-- Pagination controls-->
+         <div class="pagination">
+
+            <!-- Previous page-->
+             {% if page_obj.has_previous %}
+                <a href="?{% for key, value in reuest.GET.items %}{% if key != 'page' %}{{ key }}={{ value|urlencode }}&{% endif %}{% endfor %}page={{ page_obj.previous_page_number }}#car-table">
+                    Previous
+                </a>
+             {% endif %}
+             
+             <!--Current page information-->
+             <span>
+                Page {{ page_obj.number}} of {{page_obj.paginator.num_pages }}
+             </span>
+
+             <!-- Next page -->
+            {% if page_obj.has_next %}
+                <a href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value|urlencode }}&{% endif %}{% endfor %}page={{ page_obj.next_page_number }}#car-table">
+                    Next
+                </a>
+            {% endif %}
+         </div>
 
 
     </body>
