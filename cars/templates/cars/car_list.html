@@ -46,6 +46,95 @@
             </div>
         </section>
 
+        <section class="filter-section">
+
+            <h2>Find Cars</h2>
+
+            <form method="GET" action="{% url 'car_list' %}">
+
+                <!--Search by car name-->
+                <div class="filter-group">
+                    <label for="search">Car Name</label>
+
+                    <input type="text" id="search" name="search" placeholder="eg. Ford, Toyota.." value="{{ search }}">
+
+                </div>
+                <!--Filter by origin-->
+                <div class="filter-group">
+                    <label for="origin">Origin</label>
+
+                    <select id="origin" name="origin">
+                        <option value="">All Origins</option>
+
+                        <option value="usa"
+                            {% if selected_origin == "usa" %}selected{% endif %}>USA
+                        </option>
+
+                        <option value="europe"
+                            {% if selected_origin == "europe" %}selected{% endif %}>Europe 
+                        </option>
+
+                        <option value="japan"
+                            {% if selected_origin == "japan" %}selected{% endif %}>Japan
+                        </option>
+                    </select>
+                </div>
+
+                <!--Filter by cylinders-->
+                <div class="filter-group">
+                    <label for="cylinders">Cylinders</label>
+
+                    <select id="cylinders" name="cylinders">
+                        <option value="">All Cylinders</option>
+
+                        <option value="3" {% if selected_cylinders == "3" %}selected{% endif %}>
+                            3 Cylinders
+                        </option>
+
+                        <option value="4" {% if selected_cylinders == "4" %}selected{% endif %}>
+                            4 Cylinders
+                        </option>
+
+                        <option value="5" {% if selected_cylinders == "5" %}selected{% endif %}>
+                            5 Cylinders
+                        </option>
+
+                        <option value="6" {% if selected_cylinders == "6" %}selected{% endif %}>
+                            6 Cylinders
+                        </option>
+
+                        <option value="8" {% if selected_cylinders == "8" %}selected{% endif %}>
+                            8 Cylinders
+                        </option>
+
+                    </select>
+                </div>
+
+                <!--Filter by minimum MPG-->
+                <div class="filter-group">
+                    <label for="min_mpg">Minimum MPG</label>
+
+                    <input
+                        type="number"
+                        id="min_mpg"
+                        name="min_mpg"
+                        min="0"
+                        step="0.1"
+                        placeholder="e.g 25"
+                        value="{{ min_mpg }}"
+                    >
+
+                </div>
+
+                <div class="filter-actions">
+                    <button type="submit">Apply Filters</button>
+
+                    <a href="{% url 'car_list' %}" class="reset-button">Reset</a>
+                </div>
+
+            </form>
+        </section>
+
         <h2>Car List</h2>
 
         <table>

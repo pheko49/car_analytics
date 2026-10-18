@@ -99,3 +99,118 @@ tbody tr:hover {
         grid-template-columns: 1fr;
     }
 }
+
+/* filter section */
+.filter-section {
+    background-color: white;
+    padding: 25px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px lightgray;
+}
+
+/* filter form layout */
+.filter-section form {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    align-items: end;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* labels */
+.filter-group label {
+    font-weight: bold;
+    color: steelblue;
+    font-size: 14px;
+}
+
+/* search inouts and dropdowns */
+.filter-group input,
+.filter-group select {
+    width: 100%;
+    height: 46px;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    background-color: white;
+    font-size: 14px;
+}
+
+/* highlight a field when the user selects it */
+.filter-group input:focus,
+.filter-group select:focus {
+    outline: 2px solid steelblue;
+    outline-offset: 1px;
+}
+
+/* buttons container */
+.filter-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    grid-column: 1 / -1;
+    margin-top: 5px;
+}
+
+/* apply filters button */
+.filter-actions button {
+    padding: 11px 20px;
+    background-color: steelblue;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* button hover effect */
+.filter-actions button:hover {
+    background-color: navy;
+}
+.reset-button {
+    display: inline-block;
+    padding: 10px 20px;
+    color: navy;
+    text-decoration: none;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* reset hover effect */
+.reset-button:hover {
+    background-color: lightblue;
+}
+
+/* Tablet layout */
+@media (max-width: 900px) {
+    .filter-section form {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile layout */
+@media (max-width: 500px) {
+    .filter-section form {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-actions button,
+    .filter-actions .reset-button {
+        text-align: center;
+    }
+}
