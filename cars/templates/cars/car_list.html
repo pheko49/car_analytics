@@ -46,6 +46,30 @@
             </div>
         </section>
 
+        <!--Charts section-->
+        <div class="charts-grid">
+            <!--Average MPG by Origin chart-->
+            <div class="chart-container">
+                <h2>Average MPG by Origin</h2>
+
+                <canvas id="mpgByOriginChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2>Cars by Cylinder Count</h2>
+
+                <canvas id="carsByCylindersChart"></canvas>
+            </div>
+
+            <div class="chart-container scatter-chart">
+                <h2>Horsepower vs MPG</h2>
+
+                <canvas id="horsepowerMpgChart"></canvas>
+
+            </div>
+
+        </div>
+
         <section class="filter-section">
 
             <h2>Find Cars</h2>
@@ -188,6 +212,199 @@
             {% endif %}
          </div>
 
+         <!-- Chart.js library -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        {{ origin_labels|json_script:"origin-labels-data" }}
+        {{ origin_mpg_values|json_script:"origin-mpg-data" }}
+
+        {{ cylinder_labels|json_script:"cylinder-labels-data" }}
+        {{ cylinder_counts|json_script:"cylinder-counts-data" }}
+
+        {{ horsepower_mpg_points|json_script:"horsepower-mpg-data" }}
+
+        <script>
+            //Get the chart data prepared by django
+            const originLabels = JSON.parse(
+                document.getElementById('origin-labels-data').textContent
+            );
+
+            const originMpgValues = JSON.parse(
+                document.getElementById('origin-mpg-data').textContent
+            );
+
+            console.log('Origin Labels:', originLabels);
+            console.log('Origin MPG values', originMpgValues);
+            console.log('Labels are an array:', Array.isArray(originLabels));
+
+            // FIND THE CANVAS where the chart will drawn
+            const chartCanvas = document.getElementById('mpgByOriginChart');
+
+            // create the chart
+            new Chart(chartCanvas, {
+                type: 'bar',
+
+                data: {
+                    labels: originLabels,
+
+                    datasets: [{
+                        label: 'Average MPG',
+                        data: originMpgValues
+                    }]
+                },
+
+                options: {
+                    responsive: true,
+
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Average MPG'
+                            }
+                        },
+
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Origin'
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+
+        <script>
+            //get the cylinder data prepared by django
+            const cylinderLables = JSON.parse(
+                document.getElementById('cylinder-labels-data').textContent
+            );
+
+            const cylinderCounts = JSON.parse(
+                document.getElementById('cylinder-counts-data').textContent
+            );
+
+            // find the canvas where the chart will be drawn
+            const cylinderCanvas = document.getElementById('carsByCylindersChart');
+
+            // create the chart
+            new Chart(cylinderCanvas, {
+                type: 'bar',
+
+                data: {
+                    labels: cylinderLables,
+
+                    datasets: [{
+                        label: 'Number of Cars',
+                        data: cylinderCounts
+                    }]
+                },
+
+                options: {
+                    responsive: true,
+
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            
+                            title: {
+                                display: true,
+                                text: 'Number of Cars'
+                            }
+                            
+                        },
+
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Number of Cylinders'
+                        }
+                    } 
+                }
+            }
+        });
+
+        </script>
+
+        <script>
+            // get the scatter plot data prepared by django
+            const horsepowerMpgPoints = JSON.parse(
+                document.getElementById('horsepower-mpg-data').textContent
+            );
+
+            // find canvas
+            const horsepowerMpgCanvas = document.getElementById(
+                'horsepowerMpgChart'
+            );
+
+            // create the scatter plot
+            new Chart(horsepowerMpgCanvas, {
+                type: 'scatter',
+
+                data: {
+                    datasets: [{
+                        label: 'Cars',
+                        data: horsepowerMpgPoints
+                    }]
+                },
+
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    layout: {
+                        padding: {
+                            top: 10,
+                            bottom: 10,
+                            left: 10,
+                            right: 20
+                        }
+                    },
+
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+
+                    scales: {
+                        x: {
+                            type: 'linear',
+
+                            title: {
+                                display: true,
+                                text: 'Horsepower',
+                                padding: 10
+                            }
+                        },
+
+                        y: {
+                            beginAtZero: true,
+
+                            title: {
+                                display: true,
+                                text: 'Miles per Gallon (MPG)',
+                                padding: 10
+                            }
+                        }
+                    }
+                }
+            })
+        </script>
 
     </body>
 </html>
