@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'cars/style.css' %}">
+
+        <title>{{ car.name }} | Car Details</title>
+
+        
+    </head>
+    <body>
+
+        <div class="car-detail-container">
+
+            <a href="{% url 'car_list' %}{% if return_query %}?{{ return_query }}{% endif %}" class="back-link">&larr; Back to Car Analytics</a>
+
+                    <h1>{{ car.name }}</h1>
+
+                    <div class="car-detail-card">
+
+                    <h2>Car Specifications</h2>
+
+                    <div class="car-specifications">
+                        <p><strong>MPG:</strong> {{ car.mpg }}</p>
+                        <p><strong>Cylinders:</strong> {{ car.cylinders }}</p>
+                        <p><strong>Displacement:</strong> {{ car.displacement }}</p>
+                        <p><strong>Horsepower:</strong> {{ car.horsepower|default:"Not available" }}</p>
+                        <p><strong>Weight:</strong> {{ car.weight }} lbs</p>
+                        <p><strong>Acceleration:</strong> {{ car.acceleration }}</p>
+                        <p><strong>Model year:</strong> {{ car.model_year }}</p>
+                        <p><strong>Origin:</strong> {{ car.origin|title }}</p>
+                    </div>
+            </div>
+        </div>
+    </body>
+</html>

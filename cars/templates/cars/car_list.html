@@ -178,7 +178,13 @@
                 {% for car in cars %}
                 <tr>
 
-                    <td>{{ car.name }}</td>
+                    <!-- <td>{{ car.name }}</td> -->
+                     <td>
+                        <a class="car-name-link"
+                        href="{% url 'car_detail' car.id %}{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}">
+                        {{ car.name }}
+                        </a>
+                     </td>
                     <td>{{ car.mpg }}</td>
                     <td>{{ car.cylinders }}</td>
                     <td>{{ car.horsepower|default_if_none:"N/A" }}</td>
@@ -193,11 +199,17 @@
          <div class="pagination">
 
             <!-- Previous page-->
-             {% if page_obj.has_previous %}
-                <a href="?{% for key, value in reuest.GET.items %}{% if key != 'page' %}{{ key }}={{ value|urlencode }}&{% endif %}{% endfor %}page={{ page_obj.previous_page_number }}#car-table">
+             <!-- {% if page_obj.has_previous %}
+                <a href="?{% for key, value in reqest.GET.items %}{% if key != 'page' %}{{ key }}={{ value|urlencode }}&{% endif %}{% endfor %}page={{ page_obj.previous_page_number }}#car-table">
                     Previous
                 </a>
-             {% endif %}
+             {% endif %} -->
+
+            {% if page_obj.has_previous %}
+                <a href="{% querystring page=page_obj.previous_page_number %}#car-table">
+                   Previous
+                </a>
+            {% endif %}
              
              <!--Current page information-->
              <span>
@@ -205,11 +217,17 @@
              </span>
 
              <!-- Next page -->
-            {% if page_obj.has_next %}
+            <!-- {% if page_obj.has_next %}
                 <a href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value|urlencode }}&{% endif %}{% endfor %}page={{ page_obj.next_page_number }}#car-table">
                     Next
                 </a>
-            {% endif %}
+            {% endif %} -->
+
+        {% if page_obj.has_next %}
+            <a href="{% querystring page=page_obj.next_page_number %}#car-table">
+            Next
+            </a>
+        {% endif %}
          </div>
 
          <!-- Chart.js library -->
@@ -404,6 +422,27 @@
                     }
                 }
             })
+        </script>
+
+        <script>
+            // restore the previous scroll position when returning to the car list
+            const savedScrollPosition = sessionStorage.getItem('carListScrollPosition');
+
+            if (savedScrollPosition !== null) {
+                window.scrollTo(0, Number(savedScrollPosition));
+
+                sessionStorage.removeItem('carListScrollPosition');
+            }
+
+            // save the scroll postion when a user clicks a car details link
+            document.querySelectorAll('.car-name-link').forEach(link => {
+                link.addEventListener('click', function () {
+                    sessionStorage.setItem(
+                        'carListScrollPosition',
+                        window.scrollY
+                    );
+                });
+            });
         </script>
 
     </body>
