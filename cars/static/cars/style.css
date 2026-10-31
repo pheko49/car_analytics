@@ -326,3 +326,66 @@ tbody tr:hover {
         grid-column: auto;
     }
 }
+
+/* car details page */
+.car-detail-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 25px;
+}
+
+car-detail-container h1 {
+    color: steelblue;
+    font-size: 32px;
+    margin-bottom: 25px;
+}
+
+.car-detail-card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px lightgray;
+}
+
+.car-detail-card h2 {
+    color: steelblue;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.car-specifications {
+    display:grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 30px;
+}
+
+.car-specifications p {
+    padding: 12px;
+    margin: 0;
+    background-color: aliceblue;
+    border-radius: 6px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: steelblue;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-link:hover {
+    color: navy;
+    text-decoration: underline;
+}
+
+/* Mobile layout */
+@media (max-width: 600px) {
+    .car-detail-container {
+        padding: 0 15px;
+    }
+
+    .car-specifications {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

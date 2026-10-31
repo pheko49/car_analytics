@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from django.db.models import Avg, Count
 from django.core.paginator import Paginator
@@ -123,3 +123,11 @@ def car_list(request):
         request, "cars/car_list.html",
         context
     )
+
+def car_detail(request, car_id):
+    car = get_object_or_404(Car, id=car_id)
+
+    return render(request, "cars/car_detail.html", {
+        "car": car,
+        "return_query": request.GET.urlencode()
+    })
