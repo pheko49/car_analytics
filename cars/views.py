@@ -8,7 +8,7 @@ from .models import Car
 # Create your views here.
 
 def car_list(request):
-    cars = Car.objects.all()
+    cars = Car.objects.all().order_by('id')
 
     # Read the selected filter values from the url
     origin = request.GET.get('origin', '')
