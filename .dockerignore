@@ -10,3 +10,6 @@ __pycache__/
 .ipynb_checkpoints/
 db.sqlite3
 staticfiles/
+# Other virtual environments
+env/
+.python-version
